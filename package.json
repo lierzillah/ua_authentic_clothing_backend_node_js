@@ -1,0 +1,37 @@
+{
+  "name": "ua_authentic_clothing_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://gitlab.com/aestar/ua_authentic_clothing_backend.git",
+  "author": "a.dubchak.virtue@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "sequelize-cli": "^6.6.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "googleapis": "^156.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mime-types": "^3.0.1",
+    "multer": "^2.0.1",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.19.0"
+  },
+  "scripts": {
+    "start": "sequelize db:migrate --config config/index.js && nodemon server.js",
+    "migrate-undo": "sequelize db:migrate:undo:all --config config/index.js",
+    "seed": "sequelize db:seed:all --config config/index.js --seeders-path seeders",
+    "seed-undo": "sequelize db:seed:undo:all --config config/index.js --seeders-path seeders",
+    "format": "prettier --write .",
+    "test": "node tests/api.test.js"
+  }
+}

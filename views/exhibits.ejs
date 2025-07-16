@@ -1,0 +1,185 @@
+<%- include('header') %>
+<body>
+    <%- include('menu') %>
+    <div class="container">
+   <div class="admin-title">
+        <div class="admin-title-name">Експонати</div>
+        <div class="admin-add" id="addExibitsTrigger">+ Додати експонат</div>
+      </div>
+<table class="info-table table-rounded">
+  <thead>
+    <tr>
+      <th>Назва</th>
+      <th class="d-flex flex-end">Редагувати</th>
+    </tr>
+  </thead>
+  <tbody id="exibits-container">
+
+  </tbody>
+</table>      
+
+    </div>
+
+
+<div class="modal fade" id="createExibitsModal" tabindex="-1" aria-labelledby="createExibitsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createExibitsModalLabel">Додати експонат</h5>
+<button type="button" class="custom-close" data-bs-dismiss="modal" aria-label="Close">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2"/>
+  </svg>
+</button>
+
+      </div>
+      <div class="modal-body">
+<div class="tab-pane fade show active" id="create-general" role="tabpanel" aria-labelledby="create-general-tab">
+  <div class="mb-3">
+    <label for="createExibitsname" class="form-label">Назва експонату</label>
+    <input type="text" class="form-control" id="createExibitsname" placeholder="Назва експонату">
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="createAuthor" class="form-label">Автор</label>
+        <input type="text" class="form-control" id="createAuthor" placeholder="Імʼя автора">
+      </div>
+      <div class="mb-3">
+        <label for="createCreationMethod" class="form-label">Техніка виконання</label>
+        <input type="text" class="form-control" id="createCreationMethod" placeholder="Наприклад: лиття, різьблення">
+      </div>
+      <div class="mb-3">
+        <label for="createLocation" class="form-label">Локація</label>
+        <input type="text" class="form-control" id="createLocation" placeholder="Наприклад: Львів, вул. Шевченка, 12">
+      </div>
+      <div class="mb-3">
+        <label for="createOwner" class="form-label">Власник</label>
+        <input type="text" class="form-control" id="createOwner" placeholder="Імʼя або організація">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="createModelUrl" class="form-label">3D модель</label>
+        <input 
+          type="file" 
+          class="form-control" 
+          id="createModelUrl" 
+          name="model" 
+          accept=".glb,.gltf,.fbx,.obj" 
+        >
+      </div>
+      <div class="mb-3">
+        <label for="createCreationPeriod" class="form-label">Період створення</label>
+        <input type="text" class="form-control" id="createCreationPeriod" placeholder="Наприклад: XV століття">
+      </div>
+      <div class="mb-3">
+        <label for="createMaterials" class="form-label">Матеріали</label>
+        <input type="text" class="form-control" id="createMaterials" placeholder="Наприклад: бронза, мармур">
+      </div>
+      <div class="mb-3">
+        <label for="createFact" class="form-label">Цікавий факт</label>
+        <input type="text" class="form-control" id="createFact" placeholder="Наприклад: експонат пережив дві війни">
+      </div>
+    </div>
+  </div>
+    <div class="mb-3">
+        <label for="createDescription" class="form-label">Опис експонату</label>
+        <textarea class="form-control" id="createDescription" rows="5" style="resize: none;" placeholder="Введіть опис експонату"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="createPhotos" class="form-label">Фотографії експонату</label>
+      <input type="file" class="form-control" id="createPhotos" accept=".jpg,.jpeg,.png,.gif" multiple>
+    </div>
+    <div id="createPhotoPreview" class="d-flex flex-wrap gap-2"></div>
+</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom" id="createExibitsBtn">Створити експонат</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editExibitsModal" tabindex="-1" aria-labelledby="editExibitsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editExibitsModalLabel">Редагувати експонат</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="editExibitsname" class="form-label">Назва експонату</label>
+          <input type="text" class="form-control" id="editExibitsname" placeholder="Назва експонату">
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="editAuthor" class="form-label">Автор</label>
+              <input type="text" class="form-control" id="editAuthor" placeholder="Імʼя автора">
+            </div>
+            <div class="mb-3">
+              <label for="editCreationMethod" class="form-label">Техніка виконання</label>
+              <input type="text" class="form-control" id="editCreationMethod" placeholder="Наприклад: лиття, різьблення">
+            </div>
+            <div class="mb-3">
+              <label for="editLocation" class="form-label">Локація</label>
+              <input type="text" class="form-control" id="editLocation" placeholder="Наприклад: Львів, вул. Шевченка, 12">
+            </div>
+            <div class="mb-3">
+              <label for="editOwner" class="form-label">Власник</label>
+              <input type="text" class="form-control" id="editOwner" placeholder="Імʼя або організація">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="editModelUrl" class="form-label">Модель (3D файл)</label>
+              <input type="file" class="form-control" id="editModelUrl" accept=".glb,.gltf,.obj,.fbx,.stl">
+              <div>Обрана модель: <div id="model_url_link"></div></div>
+            </div>
+            <div class="mb-3">
+              <label for="editCreationPeriod" class="form-label">Період створення</label>
+              <input type="text" class="form-control" id="editCreationPeriod" placeholder="Наприклад: XV століття">
+            </div>
+            <div class="mb-3">
+              <label for="editMaterials" class="form-label">Матеріали</label>
+              <input type="text" class="form-control" id="editMaterials" placeholder="Наприклад: бронза, мармур">
+            </div>
+            <div class="mb-3">
+              <label for="editFact" class="form-label">Цікавий факт</label>
+              <input type="text" class="form-control" id="editFact" placeholder="Наприклад: експонат пережив дві війни">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="editDescription" class="form-label">Опис експонату</label>
+          <textarea class="form-control" id="editDescription" rows="4" placeholder="Введіть опис експонату"></textarea>
+        </div>
+
+        <div class="mb-3">
+  <label for="editPhotos" class="form-label">Фотографії експонату</label>
+  <input type="file" class="form-control" id="editPhotos" accept=".jpg,.jpeg,.png,.gif" multiple>
+</div>
+
+<div id="existingPhotoPreview" class="d-flex flex-wrap gap-2 mb-3"></div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom" id="editExibitsBtn">Зберегти зміни</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+</body>
+<%- include('footer') %>
+<script src="/assets/js/exibits.js"></script>
+</html>

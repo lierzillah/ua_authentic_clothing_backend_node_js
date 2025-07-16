@@ -1,0 +1,13 @@
+<%- include('header') %>
+<link rel="stylesheet" href="/assets/css/login.css" />
+<body>
+  <div class="sign-container">
+    <div class="admin-text">Admin Panel</div>
+    <input type="text" class="password-input" id="usernameInput" placeholder="Уведіть username">
+    <input type="password" class="password-input" id="passwordInput" placeholder="Уведіть пароль">
+    <button class="btn btn-custom" onclick="login()">Зайти до панелі</button>
+    <div class="error-message" id="errno"></div>
+  </div>
+</body>
+<%- include('footer') %>
+</html>

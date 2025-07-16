@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+yarn-error.log
+.git
+.gitignore
+.env
+.idea
+logs
+uploads
+images
+creds.json
+token.json
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md

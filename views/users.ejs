@@ -1,0 +1,95 @@
+<%- include('header') %>
+<body>
+    <%- include('menu') %>
+    <div class="container">
+      <div class="admin-title">
+        <div class="admin-title-name">Користувачі</div>
+        <div class="admin-add" id="addUserTrigger">+ Додати користувача</div>
+      </div>
+
+<table class="info-table table-rounded">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Роль</th>
+      <th class="d-flex flex-end">Редагувати</th>
+    </tr>
+  </thead>
+  <tbody id="users-container">
+
+  </tbody>
+</table>      
+
+    </div>
+
+
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createUserModalLabel">Додати користувача</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="tab-pane fade show active" id="create-general" role="tabpanel" aria-labelledby="create-general-tab">
+            <div class="mb-3">
+              <label for="createUsername" class="form-label">Нік (Username)</label>
+              <input type="text" class="form-control" id="createUsername" placeholder="Username">
+            </div>
+            <div class="mb-3">
+              <label for="createPassword" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="createPassword" placeholder="231312323">
+            </div>
+            <div class="mb-3">
+              <label for="createRole" class="form-label">Роль</label>
+              <select class="form-select" id="createRole">
+                <option value="admin">Адміністратор</option>
+                <option value="user">Користувач</option>
+              </select>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom" id="createUserBtn">Створити користувача</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">Редагувати користувача</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="tab-pane fade show active" id="create-general" role="tabpanel" aria-labelledby="edit-general-tab">
+            <div class="mb-3">
+              <label for="editUsername" class="form-label">Нік (Username)</label>
+              <input type="text" class="form-control" id="editUsername" placeholder="Username">
+            </div>
+            <div class="mb-3">
+              <label for="editPassword" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="editPassword" placeholder="231312323">
+            </div>
+            <div class="mb-3">
+              <label for="editRole" class="form-label">Роль</label>
+              <select class="form-select" id="editRole">
+                <option value="admin">Адміністратор</option>
+                <option value="user">Користувач</option>
+              </select>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom" id="editUserBtn">Редагувати користувача</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+</body>
+<%- include('footer') %>
+<script src="/assets/js/users.js"></script>
+</html>

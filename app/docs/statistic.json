@@ -1,0 +1,200 @@
+{
+  "/statistics": {
+    "get": {
+      "summary": "Get global exhibits statistics",
+      "tags": ["Statistics"],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "range",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": "1m"
+          },
+          "description": "Date range filter. Examples: 1m, 2m, 7d. m - month, d - day"
+        },
+        {
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": ["views", "createdPhoto"],
+            "default": "views"
+          },
+          "description": "Sort statistics by field"
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "default": 20
+          },
+          "description": "Limit results count"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Global statistics list",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "exhibit": {
+                      "type": "object"
+                    },
+                    "views": {
+                      "type": "integer",
+                      "example": 120
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+    }
+  },
+
+  "/statistics/exhibits/{id}": {
+    "get": {
+      "summary": "Get exhibit statistics",
+      "tags": ["Statistics"],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Exhibit ID"
+        },
+        {
+          "in": "query",
+          "name": "range",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": "1m"
+          },
+          "description": "Date range filter. Examples: 1m, 2m, 7d"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Exhibit statistics",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "views": {
+                    "type": "integer",
+                    "example": 321
+                  },
+                  "createdPhoto": {
+                    "type": "integer",
+                    "example": 54
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Exhibit not found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+    },
+
+    "post": {
+      "summary": "Add exhibit statistic event",
+      "tags": ["Statistics"],
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "Exhibit ID"
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["action"],
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": ["VIEW", "CREATED_PHOTO"],
+                  "example": "VIEW"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Statistic added successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "views": {
+                    "type": "integer",
+                    "example": 322
+                  },
+                  "createdPhoto": {
+                    "type": "integer",
+                    "example": 54
+                  },
+                  "skipped": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request"
+        },
+        "404": {
+          "description": "Exhibit not found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+    }
+  }
+}

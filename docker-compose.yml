@@ -1,0 +1,44 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: db
+      USERNAME: ${USERNAME:-postgres}
+      PASSWORD: ${PASSWORD:-postgres}
+      DATABASE: ${DATABASE:-authentic}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      REFRESH_TOKEN_DAYS: ${REFRESH_TOKEN_DAYS:-7}
+      API_HOST: ${API_HOST:-}
+      SYNC_DATA: ${SYNC_DATA:-0}
+      GOOGLE_SPREADSHEET_ID: ${GOOGLE_SPREADSHEET_ID:-}
+      GOOGLE_SPREADSHEET_RANGE: ${GOOGLE_SPREADSHEET_RANGE:-A2:J}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/usr/src/app/uploads
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${PASSWORD:-postgres}
+      POSTGRES_DB: ${DATABASE:-authentic}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USERNAME:-postgres} -d ${DATABASE:-authentic}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
+  uploads:

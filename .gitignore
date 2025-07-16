@@ -1,0 +1,10 @@
+.idea
+.env
+node_modules
+yarn.lock
+yarn-error.log
+/uploads
+/images
+creds.json
+token.json
+logs
